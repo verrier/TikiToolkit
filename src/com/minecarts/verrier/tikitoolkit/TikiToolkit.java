@@ -3,6 +3,7 @@ package com.minecarts.verrier.tikitoolkit;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.Event;
@@ -10,6 +11,7 @@ import org.bukkit.event.Event.Type;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.entity.Player;
 
 import org.bukkit.util.config.Configuration;
 
@@ -53,6 +55,18 @@ public class TikiToolkit extends JavaPlugin{
 	 
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String cmdLabel, String[] args){
+		if(cmdLabel.toLowerCase().equals("tiki")){
+			if(args.length == 1){
+				if(args[0].toLowerCase().equals("reload")){
+					this.config.load();
+					log.info("TikiToolkit config reloaded.");
+					if(sender instanceof Player){
+						((Player)sender).sendMessage("TikiToolkit config reloaded.");
+					}
+					return true;
+				}
+			}
+		}
 		return false;
 	}
 }

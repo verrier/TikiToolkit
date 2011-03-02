@@ -8,4 +8,4 @@ description: >
 commands:
   tiki:
     description: Main command to access tiki voodoo
-    usage: /<command>
+    usage: /<command> [subcmd]
