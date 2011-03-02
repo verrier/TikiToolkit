@@ -81,12 +81,14 @@ public class PlayerListener extends org.bukkit.event.player.PlayerListener{
 		int slot = player.getInventory().getHeldItemSlot();
 		String type = getToolTypeAtSlot(player, slot);
 		
-		//Check to see if the item in the hand is their configured wand
-		if (player.getInventory().getItemInHand().getType() == Material.getMaterial(type)){
-			//Execute the command
-			String cmd = plugin.config.getString("admins."+player.getName()+".slot_"+slot+"."+clickType);
-			if(cmd!= null){
-				player.performCommand(cmd);
+		if(type != null){
+			//Check to see if the item in the hand is their configured wand
+			if (player.getInventory().getItemInHand().getType() == Material.getMaterial(type)){
+				//Execute the command
+				String cmd = plugin.config.getString("admins."+player.getName()+".slot_"+slot+"."+clickType);
+				if(cmd!= null){
+					player.performCommand(cmd);
+				}
 			}
 		}
 	}
