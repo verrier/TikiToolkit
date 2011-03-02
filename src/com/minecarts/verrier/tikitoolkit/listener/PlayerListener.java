@@ -30,7 +30,11 @@ public class PlayerListener extends org.bukkit.event.player.PlayerListener{
 	}
 	
 	public void onPlayerItem(PlayerItemEvent event){
-		this.doToolCmd(event.getPlayer(),"click_right");
+		if(this.doToolCmd(event.getPlayer(),"click_right")){
+			//If we performed a command, cancel it so we don't
+			//	eat a fish, for example
+			event.setCancelled(true);
+		}
 	}
 	
 	public void onItemHeldChange(PlayerItemHeldEvent event){
@@ -54,7 +58,6 @@ public class PlayerListener extends org.bukkit.event.player.PlayerListener{
 		if(plugin.config.getBoolean("admins."+player.getName()+".respawn_wands", false)){
 			plugin.getServer().getScheduler().scheduleAsyncDelayedTask(plugin, setInventory,1);
 		}
-
 	}
 	
 	public class setInventory implements Runnable {
@@ -77,7 +80,7 @@ public class PlayerListener extends org.bukkit.event.player.PlayerListener{
     }
 
 	
-	private void doToolCmd(Player player, String clickType){		
+	private boolean doToolCmd(Player player, String clickType){		
 		int slot = player.getInventory().getHeldItemSlot();
 		String type = getToolTypeAtSlot(player, slot);
 		
@@ -88,9 +91,11 @@ public class PlayerListener extends org.bukkit.event.player.PlayerListener{
 				String cmd = plugin.config.getString("admins."+player.getName()+".slot_"+slot+"."+clickType);
 				if(cmd!= null){
 					player.performCommand(cmd);
+					return true;
 				}
 			}
 		}
+		return false;
 	}
 	
 	private String getToolTypeAtSlot(Player player, int slot){
