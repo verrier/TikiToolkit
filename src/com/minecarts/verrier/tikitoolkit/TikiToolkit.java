@@ -33,18 +33,15 @@ public class TikiToolkit extends JavaPlugin{
 		//Set up our listeners
 		playerListener = new PlayerListener(this);
 		entityListener = new EntityListener(this);
-		
-		playerSlot = new HashMap<String,Integer>();
-		
+				
 		pm.registerEvent(Type.PLAYER_ANIMATION, this.playerListener, Event.Priority.Monitor, this);
 		pm.registerEvent(Type.PLAYER_ITEM, this.playerListener, Event.Priority.Monitor, this);
 		pm.registerEvent(Type.PLAYER_ITEM_HELD, this.playerListener, Event.Priority.Monitor, this);
 		pm.registerEvent(Type.PLAYER_RESPAWN, this.playerListener, Event.Priority.Monitor, this);
 		
-		pm.registerEvent(Type.ENTITY_DEATH, this.entityListener, Event.Priority.Monitor, this);
+		pm.registerEvent(Type.ENTITY_DEATH, this.entityListener, Event.Priority.High, this);
 		
 		this.config = getConfiguration();
-		//saveConfiguration();
 	
 		PluginDescriptionFile pdf = getDescription();
 	    this.log.info("[" + pdf.getName() + "] version " + pdf.getVersion() + " loaded.");
@@ -54,13 +51,6 @@ public class TikiToolkit extends JavaPlugin{
 		
 	}
 	 
-	private void saveConfiguration(){
-		   	this.config.setProperty("admins.verrier.wand.type","STICK");
-		   	this.config.setProperty("admins.verrier.wand.slot_1.name","Test Tool");
-		   	this.config.setProperty("admins.verrier.wand.slot_1.click_left","/hpos1");
-		   	this.config.setProperty("admins.verrier.wand.slot_1.click_right","/hpos2");
-		   	this.config.save();
-	   }
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String cmdLabel, String[] args){
 		return false;
