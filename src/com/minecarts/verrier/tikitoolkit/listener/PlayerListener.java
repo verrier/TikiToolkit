@@ -70,9 +70,7 @@ public class PlayerListener extends org.bukkit.event.player.PlayerListener{
     			String type = getToolTypeAtSlot(player,i);
     			if(type != null){
     				//Assign the item
-    				ItemStack stack = new ItemStack(Material.valueOf(type));
-    				stack.setAmount(1);
-    				player.getInventory().setItem(i, stack);
+    				player.getInventory().setItem(i, new ItemStack(Material.valueOf(type),1));
     			}
     		}
         }
