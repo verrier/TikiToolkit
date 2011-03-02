@@ -31,7 +31,6 @@ public class PlayerListener extends org.bukkit.event.player.PlayerListener{
 	
 	public void onPlayerItem(PlayerItemEvent event){
 		this.doToolCmd(event.getPlayer(),"click_right");
-		event.setCancelled(true); //And cancel the event as to not place a block if that is the tool
 	}
 	
 	public void onItemHeldChange(PlayerItemHeldEvent event){
