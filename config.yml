@@ -1,16 +1,18 @@
 admins:
     verrier:
+        respawn_wands: true
         slot_0:
+            type: PAPER
+            name: Teleporter
+            click_left: jumpto
+            click_right: thru
+        slot_1:
             type: STICK
             name: WorldEdit Selector
             click_left: /hpos1
             click_right: /hpos2
-        slot_1:
-            type: STICK
-            name: Teleporter
-            click_left: jumpto
-            click_right: thru
         slot_2:
             type: STICK
             name: Selection Expander
-            click_right: /expand 1
+            click_left: /expand 1
+            click_right: /expand 1 up
