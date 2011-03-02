@@ -41,7 +41,7 @@ public class PlayerListener extends org.bukkit.event.player.PlayerListener{
 		if(name != null){
 			//Only display the selected tool message if they have the have the correct item in hand 
 			if (player.getInventory().getItemInHand().getType() == Material.getMaterial(type)){
-				player.sendMessage(String.format("Tiki: %s %s %s selected",ChatColor.GOLD,name,ChatColor.WHITE));
+				player.sendMessage(String.format("Tiki:%s %s %s selected",ChatColor.GOLD,name,ChatColor.WHITE));
 			}
 		}
 	}
