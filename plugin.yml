@@ -1,0 +1,11 @@
+name: TikiToolkit
+main: com.minecarts.verrier.tikitoolkit.TikiToolkit
+version: 1.0
+website: http://minecarts.com
+author: Verrier
+description: >
+             A slot based admin toolkit that binds tools to abilities based on inventory slot
+commands:
+  tiki:
+    description: Main command to access tiki voodoo
+    usage: /<command>
