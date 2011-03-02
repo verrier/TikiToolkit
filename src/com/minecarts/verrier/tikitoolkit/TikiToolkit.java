@@ -3,6 +3,7 @@ package com.minecarts.verrier.tikitoolkit;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -64,6 +65,13 @@ public class TikiToolkit extends JavaPlugin{
 						((Player)sender).sendMessage("TikiToolkit config reloaded.");
 					}
 					return true;
+				} else 
+				if(args[0].toLowerCase().equals("identify")){
+					if(sender instanceof Player){
+						Player player = (Player) sender;
+						player.sendMessage("Tiki: You are holding: " + ChatColor.GOLD + player.getInventory().getItemInHand().getType().name());
+						return true;
+					}
 				}
 			}
 		}
