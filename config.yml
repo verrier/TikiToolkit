@@ -1,8 +1,9 @@
 admins:
     verrier:
         respawn_wands: true
+        drop_items: false
         slot_0:
-            type: PAPER
+            type: RAW_FISH
             name: Teleporter
             click_left: jumpto
             click_right: thru

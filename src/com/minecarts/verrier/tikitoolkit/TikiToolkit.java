@@ -47,7 +47,7 @@ public class TikiToolkit extends JavaPlugin{
 		this.config = getConfiguration();
 	
 		PluginDescriptionFile pdf = getDescription();
-	    this.log.info("[" + pdf.getName() + "] version " + pdf.getVersion() + " loaded.");
+	    this.log.info("[" + pdf.getName() + "] version " + pdf.getVersion() + " enabled.");
 	}
 	
 	public void onDisable() {
