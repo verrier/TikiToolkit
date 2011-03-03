@@ -3,7 +3,7 @@ admins:
         respawn_wands: true
         drop_items: false
         slot_0:
-            type: RAW_FISH
+            type: PAPER
             name: Teleporter
             click_left: jumpto
             click_right: thru
@@ -14,6 +14,5 @@ admins:
             click_right: /hpos2
         slot_2:
             type: STICK
-            name: Selection Expander
-            click_left: /expand 1
-            click_right: /expand 1 up
+            name: Command Chain Example
+            click_left: [/hpos1, /hpos2, /shift 1 up, /set 1]
