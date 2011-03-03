@@ -8,6 +8,8 @@ import org.bukkit.event.player.*;
 import org.bukkit.entity.Player;
 
 import org.bukkit.inventory.ItemStack;
+import java.util.List;
+import java.util.ArrayList;
 
 public class PlayerListener extends org.bukkit.event.player.PlayerListener{
 
@@ -80,19 +82,27 @@ public class PlayerListener extends org.bukkit.event.player.PlayerListener{
     }
 
 	
-	private boolean doToolCmd(Player player, String clickType){		
+	private boolean doToolCmd(Player player, String clickType){
 		int slot = player.getInventory().getHeldItemSlot();
 		String type = getToolTypeAtSlot(player, slot);
 		
 		if(type != null){
 			//Check to see if the item in the hand is their configured wand
 			if (player.getInventory().getItemInHand().getType() == Material.getMaterial(type)){
-				//Execute the command
-				String cmd = plugin.config.getString("admins."+player.getName()+".slot_"+slot+"."+clickType);
-				if(cmd!= null){
-					player.performCommand(cmd);
-					return true;
+				//Try to load the commands as a list
+				List<String> cmds = plugin.config.getStringList("admins."+player.getName()+".slot_"+slot+"."+clickType, new ArrayList<String>());
+				if(cmds.size() > 0){
+					for(String cmd : cmds){
+						player.performCommand(cmd);
+					}
+				} else {
+					//Try fetching it as a string
+					String cmd = plugin.config.getString("admins."+player.getName()+".slot_"+slot+"."+clickType);
+					if(cmd != null){
+						player.performCommand(cmd);
+					}
 				}
+				return true;
 			}
 		}
 		return false;
