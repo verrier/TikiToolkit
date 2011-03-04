@@ -19,6 +19,7 @@ import org.bukkit.util.config.Configuration;
 import java.util.HashMap;
 
 import com.minecarts.verrier.tikitoolkit.listener.*;
+import com.minecarts.verrier.tikitoolkit.listener.PlayerListener.setInventory;
 
 public class TikiToolkit extends JavaPlugin{
 	
@@ -59,11 +60,18 @@ public class TikiToolkit extends JavaPlugin{
 		if(cmdLabel.toLowerCase().equals("tiki")){
 			if(args.length == 1){
 				if(args[0].toLowerCase().equals("reload")){
-					this.config.load();
-					log.info("TikiToolkit config reloaded.");
+					//If a player issued the command
 					if(sender instanceof Player){
+						//Check to see if they're an op
+						if(((Player)sender).isOp()){
+							this.config.load();
+						}
 						((Player)sender).sendMessage("TikiToolkit config reloaded.");
+					} else {
+						//Console issued the command
+						this.config.load();
 					}
+					log.info("TikiToolkit config reloaded.");
 					return true;
 				} else 
 				if(args[0].toLowerCase().equals("identify")){
@@ -72,7 +80,15 @@ public class TikiToolkit extends JavaPlugin{
 						player.sendMessage("Tiki: You are holding: " + ChatColor.GOLD + player.getInventory().getItemInHand().getType().name());
 						return true;
 					}
-				}
+				} else 
+				if(args[0].toLowerCase().equals("tools")){
+						if(sender instanceof Player){
+							Player player = (Player) sender;
+							Runnable setInventory = playerListener.new setInventory(player.getName());
+							getServer().getScheduler().scheduleAsyncDelayedTask(this, setInventory,1);
+							return true;
+						}
+					}
 			}
 		}
 		return false;
