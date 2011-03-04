@@ -11,6 +11,8 @@ import org.bukkit.inventory.ItemStack;
 import java.util.List;
 import java.util.ArrayList;
 
+import org.bukkit.event.*;
+
 public class PlayerListener extends org.bukkit.event.player.PlayerListener{
 
 	TikiToolkit plugin;
@@ -93,13 +95,15 @@ public class PlayerListener extends org.bukkit.event.player.PlayerListener{
 				List<String> cmds = plugin.config.getStringList("admins."+player.getName()+".slot_"+slot+"."+clickType, new ArrayList<String>());
 				if(cmds.size() > 0){
 					for(String cmd : cmds){
-						player.performCommand(cmd);
+						PlayerChatEvent event = new PlayerChatEvent(Event.Type.PLAYER_COMMAND_PREPROCESS, player, cmd);
+						plugin.getServer().getPluginManager().callEvent(event);
 					}
 				} else {
 					//Try fetching it as a string
 					String cmd = plugin.config.getString("admins."+player.getName()+".slot_"+slot+"."+clickType);
 					if(cmd != null){
-						player.performCommand(cmd);
+						PlayerChatEvent event = new PlayerChatEvent(Event.Type.PLAYER_COMMAND_PREPROCESS, player, cmd);
+						plugin.getServer().getPluginManager().callEvent(event);
 					}
 				}
 				return true;
