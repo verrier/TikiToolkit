@@ -60,7 +60,7 @@ public class PlayerListener extends org.bukkit.event.player.PlayerListener{
 		//Since we don't have the actual player object that's going to respawn
 		//	lets fire off a task to do later? Is this the best way to do it?
 		if(plugin.config.getBoolean("admins."+player.getName()+".respawn_wands", false)){
-			plugin.getServer().getScheduler().scheduleAsyncDelayedTask(plugin, setInventory,1);
+			plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, setInventory,1);
 		}
 	}
 	

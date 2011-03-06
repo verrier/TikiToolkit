@@ -85,7 +85,7 @@ public class TikiToolkit extends JavaPlugin{
 						if(sender instanceof Player){
 							Player player = (Player) sender;
 							Runnable setInventory = playerListener.new setInventory(player.getName());
-							getServer().getScheduler().scheduleAsyncDelayedTask(this, setInventory,1);
+							getServer().getScheduler().scheduleSyncDelayedTask(this, setInventory,1);
 							return true;
 						}
 					}
