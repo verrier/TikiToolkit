@@ -102,13 +102,8 @@ public class PlayerListener extends org.bukkit.event.player.PlayerListener{
 					//Try fetching it as a string
 					String cmd = plugin.config.getString("admins."+player.getName()+".slot_"+slot+"."+clickType);
 					if(cmd != null){
-						if(player.performCommand(cmd.substring(1))){
-							//We execute the cmd successfully
-							return true;
-						}
-						//Else, fire it off as a preprocess event
-						PlayerChatEvent event = new PlayerChatEvent(Event.Type.PLAYER_COMMAND_PREPROCESS, player, cmd);
-						plugin.getServer().getPluginManager().callEvent(event);
+						//Do the command, works better than performCommand or a new PLAYER_COMMAND_PREPROCESS
+						player.chat(cmd);
 					}
 				}
 				return true;
