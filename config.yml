@@ -1,5 +1,6 @@
 admins:
     verrier:
+        selected_msg: false
         respawn_wands: true
         drop_items: false
         slot_0:

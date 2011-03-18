@@ -49,7 +49,9 @@ public class PlayerListener extends org.bukkit.event.player.PlayerListener{
 		if(name != null){
 			//Only display the selected tool message if they have the have the correct item in hand
 			if (player.getInventory().getItem(slot).getType() == Material.getMaterial(type)){
-				player.sendMessage(String.format("Tiki: %s%s%s selected",ChatColor.GOLD,name,ChatColor.WHITE));
+				if(plugin.config.getBoolean("admins."+player.getName()+".selected_msg", true)){
+					player.sendMessage(String.format("Tiki: %s%s%s selected",ChatColor.GOLD,name,ChatColor.WHITE));
+				}
 			}
 		}
 	}
@@ -102,7 +104,6 @@ public class PlayerListener extends org.bukkit.event.player.PlayerListener{
 					//Try fetching it as a string
 					String cmd = plugin.config.getString("admins."+player.getName()+".slot_"+slot+"."+clickType);
 					if(cmd != null){
-						//Do the command, works better than performCommand or a new PLAYER_COMMAND_PREPROCESS
 						player.chat(cmd);
 					}
 				}
