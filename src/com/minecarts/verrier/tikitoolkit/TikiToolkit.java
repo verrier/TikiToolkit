@@ -38,8 +38,7 @@ public class TikiToolkit extends JavaPlugin{
 		playerListener = new PlayerListener(this);
 		entityListener = new EntityListener(this);
 				
-		pm.registerEvent(Type.PLAYER_ANIMATION, this.playerListener, Event.Priority.Monitor, this);
-		pm.registerEvent(Type.PLAYER_ITEM, this.playerListener, Event.Priority.Monitor, this);
+		pm.registerEvent(Type.PLAYER_INTERACT, this.playerListener, Event.Priority.Monitor, this);
 		pm.registerEvent(Type.PLAYER_ITEM_HELD, this.playerListener, Event.Priority.Monitor, this);
 		pm.registerEvent(Type.PLAYER_RESPAWN, this.playerListener, Event.Priority.Monitor, this);
 		

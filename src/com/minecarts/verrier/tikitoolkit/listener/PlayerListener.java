@@ -4,6 +4,7 @@ import com.minecarts.verrier.tikitoolkit.*;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.player.*;
 import org.bukkit.entity.Player;
 
@@ -27,20 +28,19 @@ public class PlayerListener extends org.bukkit.event.player.PlayerListener{
 		//Do we care?
 	}
 	
-	public void onPlayerAnimation(PlayerAnimationEvent event) {
-		if (event.getAnimationType() == PlayerAnimationType.ARM_SWING) {
-			this.doToolCmd(event.getPlayer(),"click_left");
-		}
+	public void onPlayerInteract(PlayerInteractEvent event) {
+	    Action action = event.getAction();
+	    if(action == Action.LEFT_CLICK_AIR || action == Action.LEFT_CLICK_BLOCK){
+	        this.doToolCmd(event.getPlayer(),"click_left");
+	    } else if (action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK){
+	        if(this.doToolCmd(event.getPlayer(),"click_right")){
+	            //If we performed a command, cancel it so we don't
+	            // eat a fish, for example
+	            event.setCancelled(true);
+	        }
+        }
 	}
-	
-	public void onPlayerItem(PlayerItemEvent event){
-		if(this.doToolCmd(event.getPlayer(),"click_right")){
-			//If we performed a command, cancel it so we don't
-			//	eat a fish, for example
-			event.setCancelled(true);
-		}
-	}
-	
+		
 	public void onItemHeldChange(PlayerItemHeldEvent event){
 		Player player = event.getPlayer();
 		int slot = event.getNewSlot();
