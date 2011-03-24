@@ -97,8 +97,7 @@ public class PlayerListener extends org.bukkit.event.player.PlayerListener{
 				List<String> cmds = plugin.config.getStringList("admins."+player.getName()+".slot_"+slot+"."+clickType, new ArrayList<String>());
 				if(cmds.size() > 0){
 					for(String cmd : cmds){
-						PlayerChatEvent event = new PlayerChatEvent(Event.Type.PLAYER_COMMAND_PREPROCESS, player, cmd);
-						plugin.getServer().getPluginManager().callEvent(event);
+					    player.chat(cmd);
 					}
 				} else {
 					//Try fetching it as a string
