@@ -83,6 +83,9 @@ public class TikiToolkit extends JavaPlugin{
 				if(args[0].toLowerCase().equals("tools")){
 						if(sender instanceof Player){
 							Player player = (Player) sender;
+							
+							if(!player.isOp() && config.getBoolean("admins."+player.getName()+".op_only", false)){ return false; }
+							
 							Runnable setInventory = playerListener.new setInventory(player.getName());
 							getServer().getScheduler().scheduleSyncDelayedTask(this, setInventory,1);
 							return true;

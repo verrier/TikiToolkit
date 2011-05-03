@@ -2,6 +2,7 @@ package com.minecarts.verrier.tikitoolkit.listener;
 
 import com.minecarts.verrier.tikitoolkit.*;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.event.block.Action;
@@ -61,6 +62,7 @@ public class PlayerListener extends org.bukkit.event.player.PlayerListener{
 		Runnable setInventory = new setInventory(player.getName());
 		//Since we don't have the actual player object that's going to respawn
 		//	lets fire off a task to do later? Is this the best way to do it?
+		if(!player.isOp() && plugin.config.getBoolean("admins."+player.getName()+".op_only", false)){ return ; }
 		if(plugin.config.getBoolean("admins."+player.getName()+".respawn_wands", false)){
 			plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, setInventory,1);
 		}
