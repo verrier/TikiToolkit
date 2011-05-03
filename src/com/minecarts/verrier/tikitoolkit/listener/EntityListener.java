@@ -17,6 +17,7 @@ public class EntityListener extends org.bukkit.event.entity.EntityListener {
 			Player player = (Player) event.getEntity();
 			//Check to see if their drops are off
 			if(!(plugin.config.getBoolean("admins."+player.getName()+".drop_items", true))){
+			    if(!player.isOp() && plugin.config.getBoolean("admins."+player.getName()+".op_only", false)){ return; }
 				event.getDrops().clear();
 			}
 		}
