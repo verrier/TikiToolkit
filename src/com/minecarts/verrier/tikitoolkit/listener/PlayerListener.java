@@ -98,9 +98,18 @@ public class PlayerListener extends org.bukkit.event.player.PlayerListener{
 				//Try to load the commands as a list
 				List<String> cmds = plugin.config.getStringList("admins."+player.getName()+".slot_"+slot+"."+clickType, new ArrayList<String>());
 				if(cmds.size() > 0){
-					for(String cmd : cmds){
-					    player.chat(cmd);
-					}
+				    java.util.Iterator itr = cmds.iterator();
+				    while(itr.hasNext()){
+				        String cmd = (String) itr.next();//Try to parse it as an integer, if it is, treat it as a delay
+				        try{
+				            Integer delay = Integer.parseInt(cmd);
+				            ExecuteCommandLater commandExec = new ExecuteCommandLater(player,(String)itr.next());
+				            plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, commandExec, delay);
+				        } catch (Exception e){
+				            //Wasn't an int, so it's a string command
+				            player.chat(cmd);
+				        }
+				    }
 				} else {
 					//Try fetching it as a string
 					String cmd = plugin.config.getString("admins."+player.getName()+".slot_"+slot+"."+clickType);
@@ -116,5 +125,17 @@ public class PlayerListener extends org.bukkit.event.player.PlayerListener{
 	
 	private String getToolTypeAtSlot(Player player, int slot){
 		return plugin.config.getString("admins."+player.getName()+".slot_"+slot+".type");
+	}
+	
+	private class ExecuteCommandLater implements Runnable{
+	    private String command;
+	    private Player player;
+	    public ExecuteCommandLater(Player player, String command){
+	        this.command = command;
+	        this.player = player;
+	    }
+	    public void run(){
+	        this.player.chat(command);
+	    }
 	}
 }
