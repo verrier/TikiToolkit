@@ -1,0 +1,23 @@
+admins:
+  4a262380-977e-4be6-a02f-088af3d46059:
+    selected_msg: false
+    respawn_wands: true
+    drop_items: false
+    slot_0:
+      type: PAPER
+      name: Teleporter
+      click_left: /jumpto
+      click_right: /thru
+    slot_1:
+      type: STICK
+      name: WorldEdit Selector
+      click_left: //hpos1
+      click_right: //hpos2
+    slot_2:
+      type: STICK
+      name: Command Chain Example
+      click_left:
+      - //hpos1
+      - //hpos2
+      - //shift 1 up
+      - //set 1
