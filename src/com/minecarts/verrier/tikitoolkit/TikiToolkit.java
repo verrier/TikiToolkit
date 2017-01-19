@@ -2,6 +2,7 @@ package com.minecarts.verrier.tikitoolkit;
 
 import java.util.logging.Logger;
 
+import com.minecarts.verrier.tikitoolkit.Updater.ReleaseType;
 import com.minecarts.verrier.tikitoolkit.helper.StringHelper;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -26,6 +27,13 @@ public class TikiToolkit extends JavaPlugin {
 
 	public final Logger log = Logger.getLogger("Minecraft");
 
+	public static boolean update = false;
+	public static String name = "";
+	public static ReleaseType type = null;
+	public static String version = "";
+	public static String link = "";
+	private final int id = 30761;
+
 	public void onEnable() {
 		this.saveDefaultConfig();
 
@@ -42,6 +50,28 @@ public class TikiToolkit extends JavaPlugin {
 
 		PluginDescriptionFile pdf = getDescription();
 		this.log.info("[" + pdf.getName() + "] version " + pdf.getVersion() + " enabled.");
+
+		Updater updater = new Updater(this, id, this.getFile(), Updater.UpdateType.NO_DOWNLOAD, false); // Start
+																										// Updater
+																										// but
+																										// just
+																										// do
+																										// a
+																										// version
+																										// check
+		update = updater.getResult() == Updater.UpdateResult.UPDATE_AVAILABLE; // Determine
+																				// if
+																				// there
+																				// is
+																				// an
+																				// update
+																				// ready
+																				// for
+																				// us
+		name = updater.getLatestName(); // Get the latest name
+		version = updater.getLatestGameVersion(); // Get the latest game version
+		type = updater.getLatestType(); // Get the latest file's type
+		link = updater.getLatestFileLink(); // Get the latest link
 	}
 
 	public void onDisable() {
@@ -90,7 +120,7 @@ public class TikiToolkit extends JavaPlugin {
 						return true;
 					}
 				} else if (args[0].equalsIgnoreCase("bind")) {
-					if (args.length > 2) {
+					if (args.length >= 2) {
 						if (sender instanceof Player) {
 							Player player = (Player) sender;
 							config.set(
@@ -117,6 +147,20 @@ public class TikiToolkit extends JavaPlugin {
 							this.saveConfig();
 							return true;
 						}
+					}
+				} else if (args[0].equalsIgnoreCase("update")) {
+					if (sender.hasPermission("tiki.update")) {
+						new Updater(this, id, this.getFile(), Updater.UpdateType.NO_VERSION_CHECK, true); // Go
+																											// straight
+																											// to
+																											// downloading,
+																											// and
+																											// announce
+																											// progress
+																											// to
+																											// console.
+						sender.sendMessage("The Update is downloading");
+						return true;
 					}
 				}
 			}

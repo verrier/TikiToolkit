@@ -25,14 +25,23 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
-		// Do we care?
+		Player player = event.getPlayer();
+		if (player.hasPermission("tiki.update") && TikiToolkit.update) {
+			player.sendMessage("An update is available: " + TikiToolkit.name + ", a " + TikiToolkit.type + " for "
+					+ TikiToolkit.version + " available at " + TikiToolkit.link);
+			player.sendMessage("Type /tiki update if you would like to automatically update.");
+		}
 	}
 
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent event) {
 		Action action = event.getAction();
 		if (action == Action.LEFT_CLICK_AIR || action == Action.LEFT_CLICK_BLOCK) {
-			this.doToolCmd(event.getPlayer(), "click_left");
+			if (this.doToolCmd(event.getPlayer(), "click_left")) {
+				// If we performed a command, cancel it so we don't
+				// eat a fish, for example
+				event.setCancelled(true);
+			}
 		} else if (action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK) {
 			if (this.doToolCmd(event.getPlayer(), "click_right")) {
 				// If we performed a command, cancel it so we don't
