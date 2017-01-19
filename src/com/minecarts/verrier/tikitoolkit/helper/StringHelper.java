@@ -1,20 +1,21 @@
 package com.minecarts.verrier.tikitoolkit.helper;
 
 public class StringHelper {
-    public static String join(String[] arr, int offset) {
-        return join(arr, offset, " ");
-    }
-    public static String join(String[] arr, int offset, String delim) {
-        String str = "";
+	public static String join(String[] arr, int offset) {
+		return join(arr, offset, " ");
+	}
 
-        if ((arr == null) || (arr.length == 0)) {
-            return str;
-        }
+	public static String join(String[] arr, int offset, String delim) {
+		String str = "";
 
-        for (int i = offset; i < arr.length; i++) {
-            str = str + arr[i] + delim;
-        }
+		if ((arr == null) || (arr.length == 0)) {
+			return str;
+		}
 
-        return str.trim();
-    }
+		for (int i = offset; i < arr.length; i++) {
+			str = str + arr[i] + delim;
+		}
+
+		return str.trim();
+	}
 }
